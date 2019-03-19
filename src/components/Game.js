@@ -39,6 +39,30 @@ export class Game extends Component {
     return cells;
   }
 
+  getElementOffSet() {
+    const rect = this.boardRef.getBoundingClientRect();
+    const doc = document.documentElement;
+    return {
+      x: rect.left + window.pageXOffset - doc.clientLeft,
+      y: rect.top + window.pageYOffset - doc.clientTop
+    };
+  }
+
+  handleClick = e => {
+    const elemOffSet = this.getElementOffSet();
+    const offSetX = e.clientX - elemOffSet.x;
+    const offSetY = e.clientY - elemOffSet.y;
+
+    const x = Math.floor(offSetX / cellSize);
+    const y = Math.floor(offSetY / cellSize);
+
+    if (x >= 0 && x <= this.colms && y >= 0 && y <= this.rows) {
+      this.board[y][x] = !this.board[y][x];
+    }
+
+    this.setState({ cells: this.makeCells() });
+  };
+
   render() {
     return (
       <div>
@@ -48,6 +72,10 @@ export class Game extends Component {
             width: width,
             height: height,
             backgroundSize: `${cellSize}px ${cellSize}px`
+          }}
+          onClick={this.handleClick}
+          ref={e => {
+            this.boardRef = e;
           }}
         />
       </div>
