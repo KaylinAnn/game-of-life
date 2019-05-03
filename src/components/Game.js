@@ -182,6 +182,10 @@ class Game extends React.Component {
             </button>
             )}
         </div>
+        <div>
+          <a href="https://medium.freecodecamp.org/create-gameoflife-with-react-in-one-hour-8e686a410174" target='_blank' rel="noopener noreferrer">Game of life React Tutorial </a>
+
+        </div>
       </div>
     );
   }
